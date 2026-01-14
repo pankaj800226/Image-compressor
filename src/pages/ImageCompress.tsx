@@ -5,6 +5,8 @@ import {
   type ChangeEvent,
   type JSX,
 } from "react";
+import { FaCompressAlt, FaMoon, FaSun, FaUpload } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ImageFormat = "image/jpeg" | "image/png";
 type ThemeMode = "light" | "dark";
@@ -75,8 +77,7 @@ const ImageCompress = (): JSX.Element => {
         canvas.width = width;
         canvas.height = height;
 
-        const ctx: CanvasRenderingContext2D | null =
-          canvas.getContext("2d");
+        const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
         if (!ctx) return;
 
         if (format === "image/jpeg") {
@@ -109,23 +110,42 @@ const ImageCompress = (): JSX.Element => {
   const extension: string = format === "image/png" ? "png" : "jpg";
 
   return (
-    <div className="page">
+    <motion.div
+      className="page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="bubble b1" />
       <div className="bubble b2" />
       <div className="bubble b3" />
 
-      <div className="card">
+      <motion.div
+        className="card"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="top">
-          <h1>🖼️ Image Compressor</h1>
+          <h1 className="title">
+            <FaCompressAlt className="title-icon" /> Photo
+            <span style={{ color: "#ec4899", marginLeft: "12px" }}>Shrink</span>
+          </h1>
+
           <button className="theme-btn" onClick={toggleTheme}>
-            {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+            {theme === "light" ? <FaMoon /> : <FaSun />}
           </button>
         </div>
 
         <div className="preview-layout">
-          <div className="left-panel">
+          <motion.div
+            className="left-panel"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <label className="upload">
-              Upload Image
+              <FaUpload /> Upload Image
               <input type="file" accept="image/*" hidden onChange={handleImage} />
             </label>
 
@@ -185,29 +205,59 @@ const ImageCompress = (): JSX.Element => {
                 Lock Aspect Ratio
               </label>
             </div>
-          </div>
+          </motion.div>
 
-          {original && compressed && (
-            <div className="right-panel">
-              <div className="box">
-                <h3>Original</h3>
-                <img src={original.url} />
-                <p>{original.size} MB</p>
-              </div>
+          <AnimatePresence>
+            {original && compressed && (
+              <motion.div
+                className="right-panel"
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 50, opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <motion.div
+                  className="box"
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <h3>Original</h3>
+                  <motion.img
+                    src={original.url}
+                    alt="Original"
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <p>{original.size} MB</p>
+                </motion.div>
 
-              <div className="box highlight">
-                <h3>Compressed</h3>
-                <img src={compressed.url} />
-                <p>{compressed.size} MB</p>
-                <a href={compressed.url} download={`compressed.${extension}`}>
-                  Download {extension.toUpperCase()}
-                </a>
-              </div>
-            </div>
-          )}
+                <motion.div
+                  className="box highlight"
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                >
+                  <h3>Compressed</h3>
+                  <motion.img
+                    src={compressed.url}
+                    alt="Compressed"
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  />
+                  <p>{compressed.size} MB</p>
+                  <a href={compressed.url} download={`compressed.${extension}`}>
+                    Download {extension.toUpperCase()}
+                  </a>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
