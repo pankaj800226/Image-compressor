@@ -1,182 +1,235 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
 :root {
-    --bg: #ffffff;
-    --card: #ffffff;
-    --text: #111111;
-    --border: #e5e7eb;
-    --btn: #000000;
-    --btn-text: #ffffff;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #111111;
+  --border: #e5e7eb;
+  --btn: #000000;
+  --btn-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0b0b;
+  --card: #121212;
+  --text: #f5f5f5;
+  --border: #262626;
+  --btn: #ffffff;
+  --btn-text: #000000;
+}
+
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--text);
+}
+
+/* ---------- Bubbles ---------- */
+.bubble {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: float 8s ease-in-out infinite alternate;
+
+  &.b1 {
+    background: #8b5cf6;
+    top: -80px;
+    left: -80px;
   }
-  
-  [data-theme="dark"] {
-    --bg: #0b0b0b;
-    --card: #121212;
-    --text: #f5f5f5;
-    --border: #262626;
-    --btn: #ffffff;
-    --btn-text: #000000;
+
+  &.b2 {
+    background: #ec4899;
+    top: 30%;
+    right: -80px;
   }
-  
-  * {
-    box-sizing: border-box;
+
+  &.b3 {
+    background: #38bdf8;
+    bottom: -80px;
+    left: 30%;
   }
-  
-  .page {
-    min-height: 100vh;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    color: var(--text);
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0);
   }
-  
-  .bubble {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
-    animation: float 8s ease-in-out infinite alternate;
-  
-    &.b1 {
-      background: #8b5cf6;
-      top: -80px;
-      left: -80px;
-    }
-  
-    &.b2 {
-      background: #ec4899;
-      top: 30%;
-      right: -80px;
-    }
-  
-    &.b3 {
-      background: #38bdf8;
-      bottom: -80px;
-      left: 30%;
-    }
+  to {
+    transform: translateY(-40px);
   }
-  
-  @keyframes float {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-40px);
-    }
+}
+
+/* ---------- Card ---------- */
+.card {
+  width: 95%;
+  max-width: 900px;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 26px;
   }
-  
-  .card {
-    width: 95%;
-    max-width: 900px;
-    background: var(--card);
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    z-index: 2;
+}
+
+.theme-btn {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* ---------- Upload ---------- */
+.upload {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 20px;
+  padding: 12px 24px;
+  border-radius: 14px;
+  background: var(--btn);
+  color: var(--btn-text);
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
   }
-  
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  
-    h1 {
-      font-size: 26px;
-    }
-  }
-  
-  .theme-btn {
-    background: none;
-    border: 1px solid var(--border);
-    padding: 8px 14px;
-    border-radius: 10px;
+}
+
+/* ---------- Format ---------- */
+.format {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+
+  label {
     cursor: pointer;
+  }
+}
+
+/* ---------- Quality ---------- */
+.quality {
+  text-align: center;
+  margin-bottom: 24px;
+
+  input {
+    width: 100%;
+  }
+}
+
+/* ---------- Resize ---------- */
+.resize {
+  text-align: center;
+  margin-bottom: 20px;
+
+  h4 {
+    margin-bottom: 6px;
+  }
+}
+
+.resize-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  input {
+    width: 90px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    text-align: center;
+    background: transparent;
     color: var(--text);
   }
-  
-  .upload {
-    display: block;
-    width: fit-content;
-    margin: 0 auto 20px;
-    padding: 12px 24px;
-    border-radius: 14px;
+}
+
+.lock {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+/* ---------- Preview Layout ---------- */
+.preview-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+}
+
+.left-panel {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.right-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Image Boxes ---------- */
+.box {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+
+  img {
+    max-height: 220px;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+
+  &.highlight {
+    border: 2px solid var(--text);
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    border-radius: 12px;
     background: var(--btn);
     color: var(--btn-text);
-    cursor: pointer;
-    transition: transform 0.2s;
-  
-    &:hover {
-      transform: scale(1.05);
-    }
+    text-decoration: none;
   }
-  
-  .format {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 16px;
-  
-    label {
-      cursor: pointer;
-    }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .preview-layout {
+    grid-template-columns: 1fr;
   }
-  
-  .quality {
-    text-align: center;
-    margin-bottom: 24px;
-  
-    input {
-      width: 100%;
-    }
-  }
-  
-  .preview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-  
-  .box {
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 14px;
-    text-align: center;
-  
-    img {
-      max-height: 220px;
-      max-width: 100%;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-  
-    &.highlight {
-      border: 2px solid var(--text);
-    }
-  
-    a {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 20px;
-      border-radius: 12px;
-      background: var(--btn);
-      color: var(--btn-text);
-      text-decoration: none;
-    }
-  }
-  
+}
